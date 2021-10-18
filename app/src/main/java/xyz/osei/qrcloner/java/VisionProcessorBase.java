@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.mlkit.vision.demo.java;
+package xyz.osei.qrcloner.java;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -42,15 +42,15 @@ import com.google.android.odml.image.MediaMlImageBuilder;
 import com.google.android.odml.image.MlImage;
 import com.google.mlkit.common.MlKitException;
 import com.google.mlkit.vision.common.InputImage;
-import com.google.mlkit.vision.demo.BitmapUtils;
-import com.google.mlkit.vision.demo.CameraImageGraphic;
-import com.google.mlkit.vision.demo.FrameMetadata;
-import com.google.mlkit.vision.demo.GraphicOverlay;
-import com.google.mlkit.vision.demo.InferenceInfoGraphic;
-import com.google.mlkit.vision.demo.ScopedExecutor;
-import com.google.mlkit.vision.demo.TemperatureMonitor;
-import com.google.mlkit.vision.demo.VisionImageProcessor;
-import com.google.mlkit.vision.demo.preference.PreferenceUtils;
+import xyz.osei.qrcloner.BitmapUtils;
+import xyz.osei.qrcloner.CameraImageGraphic;
+import xyz.osei.qrcloner.FrameMetadata;
+import xyz.osei.qrcloner.GraphicOverlay;
+import xyz.osei.qrcloner.InferenceInfoGraphic;
+import xyz.osei.qrcloner.ScopedExecutor;
+import xyz.osei.qrcloner.TemperatureMonitor;
+import xyz.osei.qrcloner.VisionImageProcessor;
+import xyz.osei.qrcloner.preference.PreferenceUtils;
 import java.nio.ByteBuffer;
 import java.util.Timer;
 import java.util.TimerTask;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.mlkit.vision.demo;
+package xyz.osei.qrcloner;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -24,7 +24,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
 import com.google.android.gms.common.images.Size;
-import com.google.mlkit.vision.demo.preference.PreferenceUtils;
+import xyz.osei.qrcloner.preference.PreferenceUtils;
 import java.io.IOException;
 
 /** Preview the camera image in the screen. */

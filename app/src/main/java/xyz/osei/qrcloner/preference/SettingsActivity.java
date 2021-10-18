@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.google.mlkit.vision.demo.preference;
+package xyz.osei.qrcloner.preference;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.mlkit.vision.demo.R;
+import xyz.osei.qrcloner.R;
 
 /**
  * Hosts the preference fragment to configure settings for a demo activity that specified by the

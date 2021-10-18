@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.mlkit.vision.demo.preference;
+package xyz.osei.qrcloner.preference;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -25,9 +25,9 @@ import androidx.annotation.StringRes;
 
 import com.google.android.gms.common.images.Size;
 import com.google.common.base.Preconditions;
-import com.google.mlkit.vision.demo.CameraSource;
-import com.google.mlkit.vision.demo.CameraSource.SizePair;
-import com.google.mlkit.vision.demo.R;
+import xyz.osei.qrcloner.CameraSource;
+import xyz.osei.qrcloner.CameraSource.SizePair;
+import xyz.osei.qrcloner.R;
 
 /** Utility class to retrieve shared preferences. */
 public class PreferenceUtils {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.mlkit.vision.demo.java.barcodescanner;
+package xyz.osei.qrcloner.java.barcodescanner;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -25,8 +25,8 @@ import com.google.mlkit.vision.barcode.Barcode;
 import com.google.mlkit.vision.barcode.BarcodeScanner;
 import com.google.mlkit.vision.barcode.BarcodeScanning;
 import com.google.mlkit.vision.common.InputImage;
-import com.google.mlkit.vision.demo.GraphicOverlay;
-import com.google.mlkit.vision.demo.java.VisionProcessorBase;
+import xyz.osei.qrcloner.GraphicOverlay;
+import xyz.osei.qrcloner.java.VisionProcessorBase;
 import java.util.List;
 
 /** Barcode Detector Demo. */

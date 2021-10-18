@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.mlkit.vision.demo;
+package xyz.osei.qrcloner;
 
 import android.content.Context;
 import android.graphics.Canvas;

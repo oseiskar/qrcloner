@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.mlkit.vision.demo;
+package xyz.osei.qrcloner;
 
 import androidx.annotation.NonNull;
 import java.util.concurrent.Executor;

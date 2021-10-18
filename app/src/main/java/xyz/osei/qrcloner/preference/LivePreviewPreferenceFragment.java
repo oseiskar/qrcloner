@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.mlkit.vision.demo.preference;
+package xyz.osei.qrcloner.preference;
 
 import android.hardware.Camera;
 import android.os.Bundle;
@@ -22,9 +22,9 @@ import android.preference.ListPreference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import androidx.annotation.StringRes;
-import com.google.mlkit.vision.demo.CameraSource;
-import com.google.mlkit.vision.demo.CameraSource.SizePair;
-import com.google.mlkit.vision.demo.R;
+import xyz.osei.qrcloner.CameraSource;
+import xyz.osei.qrcloner.CameraSource.SizePair;
+import xyz.osei.qrcloner.R;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

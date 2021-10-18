@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.mlkit.vision.demo.java;
+package xyz.osei.qrcloner.java;
 
 import android.content.Context;
 import android.content.Intent;
@@ -36,12 +36,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback;
 import androidx.core.content.ContextCompat;
 import com.google.android.gms.common.annotation.KeepName;
-import com.google.mlkit.vision.demo.CameraSource;
-import com.google.mlkit.vision.demo.CameraSourcePreview;
-import com.google.mlkit.vision.demo.GraphicOverlay;
-import com.google.mlkit.vision.demo.R;
-import com.google.mlkit.vision.demo.java.barcodescanner.BarcodeScannerProcessor;
-import com.google.mlkit.vision.demo.preference.SettingsActivity;
+import xyz.osei.qrcloner.CameraSource;
+import xyz.osei.qrcloner.CameraSourcePreview;
+import xyz.osei.qrcloner.GraphicOverlay;
+import xyz.osei.qrcloner.R;
+import xyz.osei.qrcloner.java.barcodescanner.BarcodeScannerProcessor;
+import xyz.osei.qrcloner.preference.SettingsActivity;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

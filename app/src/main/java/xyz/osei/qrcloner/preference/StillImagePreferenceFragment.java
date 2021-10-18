@@ -14,24 +14,16 @@
  * limitations under the License.
  */
 
-package com.google.mlkit.vision.demo;
+package xyz.osei.qrcloner.preference;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import com.google.mlkit.vision.demo.GraphicOverlay.Graphic;
+import android.os.Bundle;
+import android.preference.PreferenceFragment;
 
-/** Draw camera image to background. */
-public class CameraImageGraphic extends Graphic {
-
-  private final Bitmap bitmap;
-
-  public CameraImageGraphic(GraphicOverlay overlay, Bitmap bitmap) {
-    super(overlay);
-    this.bitmap = bitmap;
-  }
+/** Configures still image demo settings. */
+public class StillImagePreferenceFragment extends PreferenceFragment {
 
   @Override
-  public void draw(Canvas canvas) {
-    canvas.drawBitmap(bitmap, getTransformationMatrix(), null);
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
   }
 }

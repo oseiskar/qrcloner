@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.mlkit.vision.demo;
+package xyz.osei.qrcloner;
 
 /** Describing a frame info. */
 public class FrameMetadata {

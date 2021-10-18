@@ -2,7 +2,7 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.google.mlkit.vision.demo"
+    package="xyz.osei.qrcloner"
     android:installLocation="auto">
     <!-- CameraX libraries require minSdkVersion 21, while this quickstart app
     supports low to 16. Needs to use overrideLibrary to make the merger tool
@@ -38,7 +38,7 @@
             android:value="barcode,face,ocr,ica,custom_ica"/>
 
         <activity
-            android:name=".java.LivePreviewActivity"
+            android:name="xyz.osei.qrcloner.java.LivePreviewActivity"
             android:exported="true"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -48,7 +48,7 @@
         </activity>
 
         <activity
-            android:name=".preference.SettingsActivity"
+            android:name="xyz.osei.qrcloner.preference.SettingsActivity"
             android:exported="false"/>
 
     </application>

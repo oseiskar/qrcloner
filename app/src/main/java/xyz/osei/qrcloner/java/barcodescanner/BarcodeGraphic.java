@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.mlkit.vision.demo.java.barcodescanner;
+package xyz.osei.qrcloner.java.barcodescanner;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -24,8 +24,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import com.google.mlkit.vision.barcode.Barcode;
-import com.google.mlkit.vision.demo.GraphicOverlay;
-import com.google.mlkit.vision.demo.GraphicOverlay.Graphic;
+import xyz.osei.qrcloner.GraphicOverlay;
+import xyz.osei.qrcloner.GraphicOverlay.Graphic;
 
 /** Graphic instance for rendering Barcode position and content information in an overlay view. */
 public class BarcodeGraphic extends Graphic {
