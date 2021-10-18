@@ -38,71 +38,13 @@
             android:value="barcode,face,ocr,ica,custom_ica"/>
 
         <activity
-            android:name=".EntryChoiceActivity"
+            android:name=".java.LivePreviewActivity"
             android:exported="true"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".java.ChooserActivity"
-            android:exported="true">
-        </activity>
-
-        <activity
-            android:name=".java.LivePreviewActivity"
-            android:exported="true"
-            android:theme="@style/AppTheme">
-        </activity>
-
-        <activity
-            android:name=".java.CameraXLivePreviewActivity"
-            android:exported="true"
-            android:theme="@style/AppTheme">
-        </activity>
-
-        <activity
-            android:name=".java.CameraXSourceDemoActivity"
-            android:exported="true"
-            android:theme="@style/AppTheme">
-        </activity>
-
-        <activity
-            android:name=".java.StillImageActivity"
-            android:exported="true"
-            android:theme="@style/AppTheme">
-        </activity>
-
-        <activity
-            android:name=".kotlin.ChooserActivity"
-            android:exported="true">
-        </activity>
-
-        <activity
-            android:name=".kotlin.LivePreviewActivity"
-            android:exported="true"
-            android:theme="@style/AppTheme">
-        </activity>
-
-        <activity
-            android:name=".kotlin.CameraXLivePreviewActivity"
-            android:exported="true"
-            android:theme="@style/AppTheme">
-        </activity>
-
-        <activity
-            android:name=".kotlin.CameraXSourceDemoActivity"
-            android:exported="true"
-            android:theme="@style/AppTheme">
-        </activity>
-
-        <activity
-            android:name=".kotlin.StillImageActivity"
-            android:exported="true"
-            android:theme="@style/AppTheme">
         </activity>
 
         <activity
