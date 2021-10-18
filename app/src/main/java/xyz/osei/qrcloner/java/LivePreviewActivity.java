@@ -102,6 +102,8 @@ public final class LivePreviewActivity extends AppCompatActivity
           startActivity(intent);
         });
 
+    findViewById(R.id.control).setVisibility(View.GONE); // just hide so no need to edit layouts & logic so much
+
     if (allPermissionsGranted()) {
       createCameraSource(selectedModel);
     } else {
@@ -148,6 +150,8 @@ public final class LivePreviewActivity extends AppCompatActivity
     if (cameraSource == null) {
       cameraSource = new CameraSource(this, graphicOverlay);
     }
+
+    getPreferences(MODE_PRIVATE);
 
     try {
       switch (model) {

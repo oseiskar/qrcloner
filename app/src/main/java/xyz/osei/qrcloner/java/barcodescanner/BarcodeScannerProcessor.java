@@ -16,7 +16,9 @@
 
 package xyz.osei.qrcloner.java.barcodescanner;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import androidx.annotation.NonNull;
 import android.util.Log;
@@ -26,6 +28,7 @@ import com.google.mlkit.vision.barcode.BarcodeScanner;
 import com.google.mlkit.vision.barcode.BarcodeScanning;
 import com.google.mlkit.vision.common.InputImage;
 import xyz.osei.qrcloner.GraphicOverlay;
+import xyz.osei.qrcloner.MainActivity;
 import xyz.osei.qrcloner.java.VisionProcessorBase;
 import java.util.List;
 
@@ -35,8 +38,9 @@ public class BarcodeScannerProcessor extends VisionProcessorBase<List<Barcode>> 
   private static final String TAG = "BarcodeProcessor";
 
   private final BarcodeScanner barcodeScanner;
+  private final Activity parentContext;
 
-  public BarcodeScannerProcessor(Context context) {
+  public BarcodeScannerProcessor(Activity context) {
     super(context);
     // Note that if you know which format of barcode your app is dealing with, detection will be
     // faster to specify the supported barcode formats one by one, e.g.
@@ -44,6 +48,7 @@ public class BarcodeScannerProcessor extends VisionProcessorBase<List<Barcode>> 
     //     .setBarcodeFormats(Barcode.FORMAT_QR_CODE)
     //     .build();
     barcodeScanner = BarcodeScanning.getClient();
+    parentContext = context;
   }
 
   @Override
@@ -67,6 +72,13 @@ public class BarcodeScannerProcessor extends VisionProcessorBase<List<Barcode>> 
       Barcode barcode = barcodes.get(i);
       graphicOverlay.add(new BarcodeGraphic(graphicOverlay, barcode));
       logExtrasForTesting(barcode);
+
+      Log.v(MANUAL_TESTING_LOG, "saving " + barcode.getRawValue());
+      Intent intent = new Intent(parentContext, MainActivity.class);
+      intent.putExtra(MainActivity.SAVED_QR_CODE_KEY, barcode.getRawValue());
+      intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+      parentContext.startActivity(intent);
+      parentContext.finish();
     }
   }
 
