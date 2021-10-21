@@ -50,8 +50,7 @@ import java.util.List;
 @KeepName
 public final class LivePreviewActivity extends AppCompatActivity
     implements OnRequestPermissionsResultCallback,
-        OnItemSelectedListener,
-        CompoundButton.OnCheckedChangeListener {
+        OnItemSelectedListener {
   private static final String BARCODE_SCANNING = "Barcode Scanning";
 
   private static final String TAG = "LivePreviewActivity";
@@ -90,9 +89,6 @@ public final class LivePreviewActivity extends AppCompatActivity
     spinner.setAdapter(dataAdapter);
     spinner.setOnItemSelectedListener(this);
 
-    ToggleButton facingSwitch = findViewById(R.id.facing_switch);
-    facingSwitch.setOnCheckedChangeListener(this);
-
     ImageView settingsButton = findViewById(R.id.settings_button);
     settingsButton.setOnClickListener(
         v -> {
@@ -129,20 +125,6 @@ public final class LivePreviewActivity extends AppCompatActivity
   @Override
   public void onNothingSelected(AdapterView<?> parent) {
     // Do nothing.
-  }
-
-  @Override
-  public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-    Log.d(TAG, "Set facing");
-    if (cameraSource != null) {
-      if (isChecked) {
-        cameraSource.setFacing(CameraSource.CAMERA_FACING_FRONT);
-      } else {
-        cameraSource.setFacing(CameraSource.CAMERA_FACING_BACK);
-      }
-    }
-    preview.stop();
-    startCameraSource();
   }
 
   private void createCameraSource(String model) {
