@@ -1,6 +1,6 @@
-# QR Cloner android app
+# QR Cloner Android app
 
-MVP
+![Feature graphic](./app/src/main/playstore_feature_graphic.png)
 
 ## License
 
