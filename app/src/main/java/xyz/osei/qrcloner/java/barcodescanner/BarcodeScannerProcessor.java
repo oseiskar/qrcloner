@@ -17,9 +17,7 @@
 package xyz.osei.qrcloner.java.barcodescanner;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Point;
 import androidx.annotation.NonNull;
 import android.util.Log;
 import com.google.android.gms.tasks.Task;
@@ -27,6 +25,8 @@ import com.google.mlkit.vision.barcode.Barcode;
 import com.google.mlkit.vision.barcode.BarcodeScanner;
 import com.google.mlkit.vision.barcode.BarcodeScanning;
 import com.google.mlkit.vision.common.InputImage;
+import com.google.zxing.BarcodeFormat;
+
 import xyz.osei.qrcloner.GraphicOverlay;
 import xyz.osei.qrcloner.MainActivity;
 import xyz.osei.qrcloner.java.VisionProcessorBase;
@@ -65,62 +65,38 @@ public class BarcodeScannerProcessor extends VisionProcessorBase<List<Barcode>> 
   @Override
   protected void onSuccess(
       @NonNull List<Barcode> barcodes, @NonNull GraphicOverlay graphicOverlay) {
-    if (barcodes.isEmpty()) {
-      Log.v(MANUAL_TESTING_LOG, "No barcode has been detected");
-    }
     for (int i = 0; i < barcodes.size(); ++i) {
       Barcode barcode = barcodes.get(i);
       graphicOverlay.add(new BarcodeGraphic(graphicOverlay, barcode));
-      logExtrasForTesting(barcode);
+      BarcodeFormat format = convertFormatFromMLKitToZXing(barcode.getFormat());
+      if (format == null) continue;
 
-      Log.v(MANUAL_TESTING_LOG, "saving " + barcode.getRawValue());
       Intent intent = new Intent(parentContext, MainActivity.class);
-      intent.putExtra(MainActivity.SAVED_QR_CODE_KEY, barcode.getRawValue());
+      intent.putExtra(MainActivity.SAVED_CODE_CONTENT, barcode.getRawValue());
+      intent.putExtra(MainActivity.SAVED_CODE_TYPE, format.name());
       intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
       parentContext.startActivity(intent);
       parentContext.finish();
     }
   }
 
-  private static void logExtrasForTesting(Barcode barcode) {
-    if (barcode != null) {
-      if (barcode.getBoundingBox() != null) {
-        Log.v(
-            MANUAL_TESTING_LOG,
-            String.format(
-                "Detected barcode's bounding box: %s", barcode.getBoundingBox().flattenToString()));
-      }
-      if (barcode.getCornerPoints() != null) {
-        Log.v(
-            MANUAL_TESTING_LOG,
-            String.format(
-                "Expected corner point size is 4, get %d", barcode.getCornerPoints().length));
-      }
-      for (Point point : barcode.getCornerPoints()) {
-        Log.v(
-            MANUAL_TESTING_LOG,
-            String.format("Corner point is located at: x = %d, y = %d", point.x, point.y));
-      }
-      Log.v(MANUAL_TESTING_LOG, "barcode display value: " + barcode.getDisplayValue());
-      Log.v(MANUAL_TESTING_LOG, "barcode raw value: " + barcode.getRawValue());
-      Barcode.DriverLicense dl = barcode.getDriverLicense();
-      if (dl != null) {
-        Log.v(MANUAL_TESTING_LOG, "driver license city: " + dl.getAddressCity());
-        Log.v(MANUAL_TESTING_LOG, "driver license state: " + dl.getAddressState());
-        Log.v(MANUAL_TESTING_LOG, "driver license street: " + dl.getAddressStreet());
-        Log.v(MANUAL_TESTING_LOG, "driver license zip code: " + dl.getAddressZip());
-        Log.v(MANUAL_TESTING_LOG, "driver license birthday: " + dl.getBirthDate());
-        Log.v(MANUAL_TESTING_LOG, "driver license document type: " + dl.getDocumentType());
-        Log.v(MANUAL_TESTING_LOG, "driver license expiry date: " + dl.getExpiryDate());
-        Log.v(MANUAL_TESTING_LOG, "driver license first name: " + dl.getFirstName());
-        Log.v(MANUAL_TESTING_LOG, "driver license middle name: " + dl.getMiddleName());
-        Log.v(MANUAL_TESTING_LOG, "driver license last name: " + dl.getLastName());
-        Log.v(MANUAL_TESTING_LOG, "driver license gender: " + dl.getGender());
-        Log.v(MANUAL_TESTING_LOG, "driver license issue date: " + dl.getIssueDate());
-        Log.v(MANUAL_TESTING_LOG, "driver license issue country: " + dl.getIssuingCountry());
-        Log.v(MANUAL_TESTING_LOG, "driver license number: " + dl.getLicenseNumber());
-      }
+  private static BarcodeFormat convertFormatFromMLKitToZXing(int barcodeFormat) {
+    switch (barcodeFormat) {
+      case Barcode.FORMAT_AZTEC: return BarcodeFormat.AZTEC;
+      case Barcode.FORMAT_CODABAR: return BarcodeFormat.CODABAR;
+      case Barcode.FORMAT_CODE_39: return BarcodeFormat.CODE_39;
+      case Barcode.FORMAT_CODE_93: return BarcodeFormat.CODE_93;
+      case Barcode.FORMAT_QR_CODE: return BarcodeFormat.QR_CODE;
+      case Barcode.FORMAT_CODE_128: return BarcodeFormat.CODE_128;
+      case Barcode.FORMAT_DATA_MATRIX: return BarcodeFormat.DATA_MATRIX;
+      case Barcode.FORMAT_EAN_8: return BarcodeFormat.EAN_8;
+      case Barcode.FORMAT_EAN_13: return BarcodeFormat.EAN_13;
+      case Barcode.FORMAT_ITF: return BarcodeFormat.ITF;
+      case Barcode.FORMAT_PDF417: return BarcodeFormat.PDF_417;
+      case Barcode.FORMAT_UPC_A: return BarcodeFormat.UPC_A;
+      case Barcode.FORMAT_UPC_E: return BarcodeFormat.UPC_E;
     }
+    return null;
   }
 
   @Override

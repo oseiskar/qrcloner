@@ -8,39 +8,34 @@
     android:background="@color/white"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/qr_code_text_scroll_container"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:layout_constraintTop_toTopOf="parent">
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHeight_max="wrap"
-            app:layout_constraintVertical_bias="0"
-            android:layout_margin="10dp">
-            <TextView
-                android:id="@+id/qr_code_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/gray">
-            </TextView>
-        </ScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <ImageView
         android:id="@+id/qr_code_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/rendered_qr_or_bar_code"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/qr_code_text_scroll_container_land"
+        app:layout_constraintStart_toStartOf="parent"
         android:padding="10dp"
+        android:contentDescription="@string/rendered_qr_or_bar_code" />
+
+    <ScrollView
+        android:id="@+id/qr_code_text_scroll_container_land"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/qr_code_text_scroll_container"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintHeight_max="wrap"
+        app:layout_constraintVertical_bias="0"
+        android:layout_margin="10dp">
+        <TextView
+            android:id="@+id/qr_code_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray">
+        </TextView>
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/change"

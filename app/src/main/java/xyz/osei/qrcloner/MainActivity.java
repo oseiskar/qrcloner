@@ -9,10 +9,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.Writer;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
@@ -21,40 +23,79 @@ import xyz.osei.qrcloner.java.LivePreviewActivity;
 
 public class MainActivity extends AppCompatActivity {
     private static String TAG = MainActivity.class.getName();
-    public static String SAVED_QR_CODE_KEY = "savedQrCode";
+    public static String SAVED_CODE_CONTENT = "saved_code_content";
+    public static String SAVED_CODE_TYPE = "saved_code_type";
+
+    static class Code {
+        String content;
+        BarcodeFormat format;
+
+        void saveToPreferences(SharedPreferences prefs) {
+            prefs.edit()
+                .putString(SAVED_CODE_CONTENT, content)
+                .putString(SAVED_CODE_TYPE, format.name())
+                .apply();
+        }
+
+        static Code fromPreferences(SharedPreferences prefs) {
+            return fromStrings(
+                    prefs.getString(SAVED_CODE_CONTENT, null),
+                    prefs.getString(SAVED_CODE_TYPE, null));
+        }
+
+        static Code fromIntent(Intent intent) {
+            if (intent.hasExtra(SAVED_CODE_CONTENT) && intent.hasExtra(SAVED_CODE_TYPE)) {
+                return fromStrings(
+                        intent.getStringExtra(SAVED_CODE_CONTENT),
+                        intent.getStringExtra(SAVED_CODE_TYPE));
+            }
+            return null;
+        }
+
+        static Code fromStrings(String content, String type) {
+            if (content == null || type == null) {
+                return null;
+            }
+            Code code = new Code();
+            code.content = content;
+            try {
+                code.format = BarcodeFormat.valueOf(type);
+            } catch (Exception e) {
+                Log.w(TAG, "Invalid type");
+                return null;
+            }
+            return code;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Intent intent = getIntent();
-        String activeCode = null;
-        if (intent.hasExtra(SAVED_QR_CODE_KEY))
-            activeCode = intent.getStringExtra(SAVED_QR_CODE_KEY);
-
         findViewById(R.id.change).setOnClickListener(v -> scanNewCode());
 
-        SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
+        Intent intent = getIntent();
+        Code activeCode = Code.fromIntent(intent);
 
+        SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
         if (activeCode == null) {
-            activeCode = sharedPref.getString(SAVED_QR_CODE_KEY, null);
+            activeCode = Code.fromPreferences(sharedPref);
         } else {
-            sharedPref.edit().putString(SAVED_QR_CODE_KEY, activeCode).apply();
+            activeCode.saveToPreferences(sharedPref);
+        }
+
+        Log.d(TAG, "active code");
+        try {
+            drawCode(activeCode);
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to draw code: " + e.getMessage());
+            activeCode = null;
         }
 
         if (activeCode == null) {
-            Log.d(TAG, "empty QR code, opening scanning activity");
+            Log.d(TAG, "empty code, opening scanning activity");
             scanNewCode();
             finish(); // in this case, back should quit
-            return;
-        }
-
-        Log.d(TAG, "active QR code");
-        try {
-            drawQrCode(activeCode);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -63,13 +104,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void drawQrCode(String code) throws WriterException {
-        QRCodeWriter writer = new QRCodeWriter();
+    private void drawCode(Code code) throws WriterException {
+        Writer writer = new MultiFormatWriter();
 
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        BitMatrix bm = writer.encode(code, BarcodeFormat.QR_CODE, metrics.widthPixels, metrics.heightPixels);
+        int size = Math.min(metrics.widthPixels, metrics.heightPixels);
+        BitMatrix bm = writer.encode(code.content, code.format, size, size);
         int w = bm.getWidth();
         int h = bm.getHeight();
         int foreground = Color.BLACK;
@@ -82,7 +124,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        ImageView view = findViewById(R.id.qr_code_image);
-        view.setImageBitmap(bitmap);
+        TextView textView = findViewById(R.id.qr_code_text);
+        textView.setText(code.format.name() + ": " + code.content);
+        Log.d(TAG, code.format.name());
+
+        ImageView imageView = findViewById(R.id.qr_code_image);
+        imageView.setImageBitmap(bitmap);
     }
 }
