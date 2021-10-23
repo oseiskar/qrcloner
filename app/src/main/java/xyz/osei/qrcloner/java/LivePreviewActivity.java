@@ -17,7 +17,6 @@
 package xyz.osei.qrcloner.java;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -27,11 +26,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.ToggleButton;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback;
 import androidx.core.content.ContextCompat;
@@ -41,7 +38,7 @@ import xyz.osei.qrcloner.CameraSourcePreview;
 import xyz.osei.qrcloner.GraphicOverlay;
 import xyz.osei.qrcloner.R;
 import xyz.osei.qrcloner.java.barcodescanner.BarcodeScannerProcessor;
-import xyz.osei.qrcloner.preference.SettingsActivity;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,15 +85,6 @@ public final class LivePreviewActivity extends AppCompatActivity
     // attaching data adapter to spinner
     spinner.setAdapter(dataAdapter);
     spinner.setOnItemSelectedListener(this);
-
-    ImageView settingsButton = findViewById(R.id.settings_button);
-    settingsButton.setOnClickListener(
-        v -> {
-          Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-          intent.putExtra(
-              SettingsActivity.EXTRA_LAUNCH_SOURCE, SettingsActivity.LaunchSource.LIVE_PREVIEW);
-          startActivity(intent);
-        });
 
     findViewById(R.id.control).setVisibility(View.GONE); // just hide so no need to edit layouts & logic so much
 
