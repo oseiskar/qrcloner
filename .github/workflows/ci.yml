@@ -11,13 +11,15 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Build with Gradle
-      run: ./gradlew assembleRelease
+    - name: Build Project
+      run: ./gradlew build
+    - name: Build Release AAB
+      run: ./gradlew bundleRelease
     - uses: r0adkll/sign-android-release@v1
       name: Sign app APK
       id: sign_app
       with:
-        releaseDirectory: app/build/outputs/apk/release
+        releaseDirectory: app/build/outputs/bundle/release
         signingKeyBase64: ${{ secrets.SIGNING_KEY }}
         # key/store passwords are redundant security layers in this context
         alias: key0
