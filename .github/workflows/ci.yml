@@ -5,7 +5,6 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
     - name: set up JDK 1.8
@@ -14,3 +13,18 @@ jobs:
         java-version: 1.8
     - name: Build with Gradle
       run: ./gradlew assembleRelease
+    - uses: r0adkll/sign-android-release@v1
+      name: Sign app APK
+      id: sign_app
+      with:
+        releaseDirectory: app/build/outputs/apk/release
+        signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+        # key/store passwords are redundant security layers in this context
+        alias: key0
+        keyStorePassword: '123456'
+        keyPassword: '123456'
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Signed app bundle
+        path: ${{steps.sign_app.outputs.signedReleaseFile}}
+        retention-days: 1
