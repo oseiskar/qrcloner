@@ -22,7 +22,7 @@ jobs:
         releaseDirectory: app/build/outputs/bundle/release
         signingKeyBase64: ${{ secrets.SIGNING_KEY }}
         # key/store passwords are redundant security layers in this context
-        alias: key0
+        alias: upload-self-cert
         keyStorePassword: '123456'
         keyPassword: '123456'
     - uses: actions/upload-artifact@v2
