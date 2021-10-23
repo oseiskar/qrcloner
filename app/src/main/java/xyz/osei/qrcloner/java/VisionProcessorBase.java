@@ -46,7 +46,6 @@ import xyz.osei.qrcloner.BitmapUtils;
 import xyz.osei.qrcloner.CameraImageGraphic;
 import xyz.osei.qrcloner.FrameMetadata;
 import xyz.osei.qrcloner.GraphicOverlay;
-import xyz.osei.qrcloner.InferenceInfoGraphic;
 import xyz.osei.qrcloner.ScopedExecutor;
 import xyz.osei.qrcloner.VisionImageProcessor;
 import xyz.osei.qrcloner.preference.PreferenceUtils;
@@ -330,14 +329,6 @@ public abstract class VisionProcessorBase<T> implements VisionImageProcessor {
                 graphicOverlay.add(new CameraImageGraphic(graphicOverlay, originalCameraImage));
               }
               VisionProcessorBase.this.onSuccess(results, graphicOverlay);
-              if (!PreferenceUtils.shouldHideDetectionInfo(graphicOverlay.getContext())) {
-                graphicOverlay.add(
-                    new InferenceInfoGraphic(
-                        graphicOverlay,
-                        currentFrameLatencyMs,
-                        currentDetectorLatencyMs,
-                        shouldShowFps ? framesPerSecond : null));
-              }
               graphicOverlay.postInvalidate();
             })
         .addOnFailureListener(
