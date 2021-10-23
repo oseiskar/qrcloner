@@ -2,6 +2,9 @@ package xyz.osei.qrcloner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -9,9 +12,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.Writer;
@@ -126,7 +131,14 @@ public class MainActivity extends AppCompatActivity {
 
         TextView textView = findViewById(R.id.qr_code_text);
         textView.setText(code.format.name() + ": " + code.content);
-        Log.d(TAG, code.format.name());
+
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        textView.setOnLongClickListener(v -> {
+            clipboard.setPrimaryClip(ClipData.newPlainText("text", code.content));
+            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), getText(R.string.copied_to_clipboard), Snackbar.LENGTH_SHORT);
+            snackbar.show();
+            return true;
+        });
 
         ImageView imageView = findViewById(R.id.qr_code_image);
         imageView.setImageBitmap(bitmap);
