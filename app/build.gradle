@@ -9,7 +9,7 @@ android {
         multiDexEnabled true
         targetSdkVersion 33
 
-        versionCode 4
+        versionCode 5
         versionName "1.0.1"
         vectorDrawables.useSupportLibrary = true
         setProperty("archivesBaseName", "qr-cloner")
